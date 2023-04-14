@@ -56,3 +56,51 @@ class MultiScreenBuilder extends StatelessWidget {
     );
   }
 }
+
+class MultiScreenBuilderNoRebuild extends StatelessWidget {
+  const MultiScreenBuilderNoRebuild({
+    required this.mobileBuilder,
+    required this.tabletBuilder,
+    required this.desktopBuilder,
+    Key? key,
+  }) : super(key: key);
+
+  final Widget Function(
+    BuildContext context,
+  )? mobileBuilder;
+
+  final Widget Function(
+    BuildContext context,
+  )? tabletBuilder;
+
+  final Widget Function(
+    BuildContext context,
+  )? desktopBuilder;
+
+  static bool isMobile(BuildContext context) =>
+      MediaQuery.of(context).size.width < 600;
+
+  static bool isTablet(BuildContext context) =>
+      MediaQuery.of(context).size.width < 1100 &&
+      MediaQuery.of(context).size.width >= 600;
+
+  static bool isDesktop(BuildContext context) =>
+      MediaQuery.of(context).size.width >= 1100;
+
+  @override
+  Widget build(BuildContext context) {
+    if (isDesktop(context)) {
+      return desktopBuilder == null
+          ? const Text("not compatible for Desktop")
+          : desktopBuilder!(context);
+    } else if (isTablet(context)) {
+      return tabletBuilder == null
+          ? const Text("not compatible for table")
+          : tabletBuilder!(context);
+    } else {
+      return mobileBuilder == null
+          ? const Text("not compatible for mobile")
+          : mobileBuilder!(context);
+    }
+  }
+}

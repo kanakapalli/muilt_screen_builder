@@ -1,6 +1,6 @@
 name: multi_screen_builder
 description: This allows MultiScreenBuilder helps to develope different layout for mobile , table and desktop/web with custom breakpoints with ease.
-version: 1.0.1
+version: 1.1.0
 homepage: https://github.com/kanakapalli/muilt_screen_builder
 
 environment:
